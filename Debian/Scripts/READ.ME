@@ -1,0 +1,17 @@
+How setting my scripts folder
+
+»Give executable permission in all scripts with:
+	sudo chmod 777 file_name.sh
+
+»Open .bashrc and insert
+
+	SCRIPTS="$HOME/Scripts"
+	export SCRIPTS
+
+»Insert in /usr/local/bin:
+	sudo ln -s $SCRIPTS/kill.sh my_kill
+
+»Insert a keyboard shortcut
+	 bind -x '"\C-k":my_kill'
+
+»Insert my_init_script in "Startup applications" in app menu.

@@ -1,0 +1,92 @@
+
+
+# MY ENV VARIABLES
+SCRIPTS="$HOME/Scripts"
+export SCRIPTS
+
+ROS_WS_PKG="$HOME/ros_ws"
+export ROS_WS_PKG
+
+GIT_STUFF="$HOME/GitStuff"
+export GIT_STUFF
+
+#CURRENT_ROS_WS="$ROS_WS_PKG/catkin_ws"
+CURRENT_ROS_WS="$ROS_WS_PKG/catkin_bin_picking_ws"
+#CURRENT_ROS_WS="$ROS_WS_PKG/catkin_graspit_ws"
+export CURRENT_ROS_WS
+
+## To Simox
+QHULL_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu/"
+export QHULL_LIBRARY_PATH
+
+CURRENT_FROM_SOURCE="/home/joaopedro/fromSourceTools"
+export CURRENT_FROM_SOURCE
+
+#To new Boost home folder
+#BOOST_ROOT="$CURRENT_FROM_SOURCE/boost-1-65/"
+#export BOOST_ROOT
+
+#To GraspIt
+GRASPIT="$CURRENT_FROM_SOURCE/graspit-2.2"
+#GRASPIT="$CURRENT_ROS_WS/src/grasp_synthesis"
+export GRASPIT
+
+LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH
+
+#ROS Adresses
+#ROS_IP=172.16.46.252 #To Friday
+#ROS_IP=localhost
+#export ROS_IP
+
+#ROS_MASTER_URI=http://172.16.10.1:11311 #To Friday
+#export ROS_MASTER_URI
+
+# MY STUFFs
+alias gws='cd $CURRENT_ROS_WS/src'
+alias ggt='cd $GIT_STUFF'
+alias gfs='cd $CURRENT_FROM_SOURCE'
+alias bashporra='source /home/joaopedro/.bashrc'
+alias vembash='gedit /home/joaopedro/.bashrc'
+alias cade='dpkg -S'
+alias tenho='dpkg -l'
+alias amarelo='redshift -O 2500'
+alias normal='redshift -O 3500'
+alias go_to_icons_folder='cd /home/joaopedro/.local/share/applications'
+alias amarrar_processo='echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope'
+alias vemfriday='ssh user@172.16.10.1' #pass 5dpo #To Friday
+
+bind -x '"\C-k":my_kill' #to kill process
+bind -x '"\C-b":catkin build' #to build ros pkgs
+
+#unset CMAKE_PREFIX_PATH
+
+# ROS STUFFs
+#source /opt/ros/kinetic/setup.bash
+#source $ROS_WS_PKG/projection_maping_ws/devel/setup.bash
+#source $ROS_WS_PKG/catkin_ws_drl/devel/setup.bash
+#source $ROS_WS_PKG/catkin_ws/devel/setup.bash
+
+#source $CURRENT_ROS_WS/devel_release/setup.bash
+source $CURRENT_ROS_WS/devel_debug/setup.bash
+##########source $CURRENT_ROS_WS/devel/setup.bash
+
+#Bin-Picking
+#Photoneo Sensor
+export PHOXI_CONTROL_PATH=/opt/PhotoneoPhoXiControl
+
+#OpenRave
+#source `/my/openraveinstall/bin/openrave-config --share-dir`/openrave.bash
+#export PYTHONPATH=$PYTHONPATH:`openrave-config --python-dir`
+
+echo "»»"
+echo "»» Current CMake Prefix Path:"
+echo "»»" $CMAKE_PREFIX_PATH
+echo "»» Current ROS_MASTER_URI Path:"
+echo "»»" $ROS_MASTER_URI
+echo "»» Current ROS_IP Path:"
+echo "»»" $ROS_IP
+echo "»»"
+
+#cat /home/joaopedro/Desktop/Continuar
+#alias code_name="command"

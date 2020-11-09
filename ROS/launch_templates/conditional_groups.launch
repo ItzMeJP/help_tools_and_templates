@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+
+  <arg name="input" default="0"/>
+
+  <group if="$(eval arg('camera') == 0)">
+    <arg name="msg" default=">>> Zero Input" />
+    <node name="pub_text" pkg="rostopic" type="rostopic" args="pub /msg std_msgs/String '$(arg msg)'" output="screen" />
+    <node name="print_text" pkg="rostopic" type="rostopic" args="echo /msg" output="screen" />
+  </group>
+
+  <group if="$(eval arg('camera') == 'Hello')">
+    <arg name="msg" default=">>> Hello Input" />
+    <node name="pub_text" pkg="rostopic" type="rostopic" args="pub /msg std_msgs/String '$(arg msg)'" output="screen" />
+    <node name="print_text" pkg="rostopic" type="rostopic" args="echo /msg" output="screen" />
+  </group>
+
+</launch>
