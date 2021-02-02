@@ -56,6 +56,11 @@ alias go_to_icons_folder='cd /home/joaopedro/.local/share/applications'
 alias amarrar_processo='echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope'
 alias vemfriday='ssh user@172.16.10.1' #pass 5dpo #To Friday
 
+# Related to Nvidea Configuration
+alias desligarXserver='sudo systemctl stop lightdm.service'
+alias ubuntuKernelVersion='echo "In Usage: "&&uname -r &&echo "Installed list: "&&dpkg --list | grep linux-image'
+alias nvideaInfo='nvcc --version&&nvidia-smi'
+
 bind -x '"\C-k":my_kill' #to kill process
 bind -x '"\C-b":catkin build' #to build ros pkgs
 
