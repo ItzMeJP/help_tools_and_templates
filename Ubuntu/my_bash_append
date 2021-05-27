@@ -1,4 +1,4 @@
-
+###################################################################### JP
 
 # MY ENV VARIABLES
 SCRIPTS="$HOME/Scripts"
@@ -10,14 +10,22 @@ export ROS_WS_PKG
 GIT_STUFF="$HOME/GitStuff"
 export GIT_STUFF
 
-#CURRENT_ROS_WS="$ROS_WS_PKG/catkin_ws"
-CURRENT_ROS_WS="$ROS_WS_PKG/catkin_bin_picking_ws"
-#CURRENT_ROS_WS="$ROS_WS_PKG/catkin_graspit_ws"
+#CURRENT_ROS_WS="$ROS_WS_PKG/ws_pcl"
+#CURRENT_ROS_WS="$ROS_WS_PKG/ws_drl"
+#CURRENT_ROS_WS="$ROS_WS_PKG/ws_devices"
+#CURRENT_ROS_WS="$ROS_WS_PKG/ws_graspit"
+#CURRENT_ROS_WS="$ROS_WS_PKG/ws_picking"
+CURRENT_ROS_WS="$ROS_WS_PKG/ws_xweld"
 export CURRENT_ROS_WS
 
+# ROS STUFFs
+#source /opt/ros/noetic/setup.bash
+#source $CURRENT_ROS_WS/devel_release/setup.bash
+source $CURRENT_ROS_WS/devel_debug/setup.bash
+
 ## To Simox
-QHULL_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu/"
-export QHULL_LIBRARY_PATH
+#QHULL_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu/"
+#export QHULL_LIBRARY_PATH
 
 CURRENT_FROM_SOURCE="/home/joaopedro/fromSourceTools"
 export CURRENT_FROM_SOURCE
@@ -26,13 +34,15 @@ export CURRENT_FROM_SOURCE
 #BOOST_ROOT="$CURRENT_FROM_SOURCE/boost-1-65/"
 #export BOOST_ROOT
 
+LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH
+
 #To GraspIt
-GRASPIT="$CURRENT_FROM_SOURCE/graspit-2.2"
+GRASPIT="$CURRENT_FROM_SOURCE/graspit"
 #GRASPIT="$CURRENT_ROS_WS/src/grasp_synthesis"
 export GRASPIT
 
-LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH
+
 
 #ROS Adresses
 #ROS_IP=172.16.46.252 #To Friday
@@ -47,39 +57,31 @@ alias gws='cd $CURRENT_ROS_WS/src'
 alias ggt='cd $GIT_STUFF'
 alias gfs='cd $CURRENT_FROM_SOURCE'
 alias bashporra='source /home/joaopedro/.bashrc'
-alias vembash='gedit /home/joaopedro/.bashrc'
+alias vembash='atom /home/joaopedro/.bashrc'
 alias cade='dpkg -S'
 alias tenho='dpkg -l'
 alias amarelo='redshift -O 2500'
-alias normal='redshift -O 3500'
+alias normal='redshift -x'
 alias go_to_icons_folder='cd /home/joaopedro/.local/share/applications'
 alias amarrar_processo='echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope'
 alias vemfriday='ssh user@172.16.10.1' #pass 5dpo #To Friday
+alias verificarlog='dmesg'
+alias listarepositorio='atom /etc/apt/sources.list'
 
 # Related to Nvidea Configuration
 alias desligarXserver='sudo systemctl stop lightdm.service'
 alias ubuntuKernelVersion='echo "In Usage: "&&uname -r &&echo "Installed list: "&&dpkg --list | grep linux-image'
 alias nvideaInfo='nvcc --version&&nvidia-smi'
 
-bind -x '"\C-k":my_kill' #to kill process
+bind -x '"\C-k":./my_kill' #to kill process
 bind -x '"\C-b":catkin build' #to build ros pkgs
 
 #unset CMAKE_PREFIX_PATH
 
-# ROS STUFFs
-#source /opt/ros/kinetic/setup.bash
-#source $ROS_WS_PKG/projection_maping_ws/devel/setup.bash
-#source $ROS_WS_PKG/catkin_ws_drl/devel/setup.bash
-#source $ROS_WS_PKG/catkin_ws/devel/setup.bash
-
-#source $CURRENT_ROS_WS/devel_release/setup.bash
-source $CURRENT_ROS_WS/devel_debug/setup.bash
-##########source $CURRENT_ROS_WS/devel/setup.bash
 
 #Bin-Picking
 #Photoneo Sensor
-export PHOXI_CONTROL_PATH=/opt/PhotoneoPhoXiControl
-
+#export PHOXI_CONTROL_PATH=/opt/PhotoneoPhoXiControl
 #OpenRave
 #source `/my/openraveinstall/bin/openrave-config --share-dir`/openrave.bash
 #export PYTHONPATH=$PYTHONPATH:`openrave-config --python-dir`
