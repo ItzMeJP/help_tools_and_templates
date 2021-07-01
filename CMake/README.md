@@ -13,6 +13,8 @@ It is important to note that, cmake only runs with the load command. For instanc
 * [Generating a Global CMAKE Variable](#globalvar)
 * [If statement with Global Variable](#ifglobalvar)
 * [Getting an Absolute Path inside a CMAKE](#getabspath)
+* [Setting compiler version](#setcompiler)
+
 
 
 ### <a name="tree"></a>1. Creating a CMAKE Tree Architecture
@@ -105,4 +107,19 @@ or even more...
 
 ```
 get_filename_component(DIR_TWO_ABOVE ../../ ABSOLUTE)
+```
+
+### <a name="setcompiler"></a>5. Setting compiler version
+
+To set the compiler version, and C standard, in a specific CMake project, without change the native version, just place the following commands inside the project CMAKE file.
+
+```
+set(CMAKE_C_COMPILER "gcc-10")
+set(CMAKE_CXX_COMPILER "/usr/bin/g++-10")
+set(CMAKE_CXX_STANDARD 17)
+```
+
+To verify, just run in terminal:
+```
+strings -a <EXECUTABLE|LIB> |grep "GCC"
 ```

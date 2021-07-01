@@ -20,8 +20,8 @@ export CURRENT_ROS_WS
 
 # ROS STUFFs
 #source /opt/ros/noetic/setup.bash
-#source $CURRENT_ROS_WS/devel_release/setup.bash
-source $CURRENT_ROS_WS/devel_debug/setup.bash
+source $CURRENT_ROS_WS/devel_release/setup.bash
+#source $CURRENT_ROS_WS/devel_debug/setup.bash
 
 ## To Simox
 #QHULL_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu/"
@@ -42,6 +42,8 @@ GRASPIT="$CURRENT_FROM_SOURCE/graspit"
 #GRASPIT="$CURRENT_ROS_WS/src/grasp_synthesis"
 export GRASPIT
 
+MIMIC_GRASPING_SERVER_ROOT="$HOME/clion_ws/mimic_grasping_server"
+export MIMIC_GRASPING_SERVER_ROOT
 
 
 #ROS Adresses
@@ -67,6 +69,12 @@ alias amarrar_processo='echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope'
 alias vemfriday='ssh user@172.16.10.1' #pass 5dpo #To Friday
 alias verificarlog='dmesg'
 alias listarepositorio='atom /etc/apt/sources.list'
+
+# Alias functions (alias with parameters...)
+function qualgcc(){ # check with which gcc version and .bin of .so was copiled
+  strings -a $1 | grep "GCC"
+}
+export -f qualgcc
 
 # Related to Nvidea Configuration
 alias desligarXserver='sudo systemctl stop lightdm.service'
