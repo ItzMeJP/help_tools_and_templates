@@ -1,18 +1,47 @@
-How setting my scripts folder
 
-»Give executable permission in all scripts with:
-	sudo chmod 777 file_name.sh
+# Some usefull SCRIPTS
 
-»Open .bashrc and insert
+## How setup the folder
 
-	SCRIPTS="$HOME/Scripts"
-	export SCRIPTS
+1. Clone this folder.
 
-»Insert in /usr/local/bin: (ubuntu 20 is /bin)
-	sudo ln -s $SCRIPTS/kill.sh my_kill
+2. Set executable permission to all scripts with:
 
-»Insert a keyboard shortcut
-	 bind -x '"\C-k":my_kill'
+```
+sudo chmod 777 file_name.sh
+```
+
+3. Open .bashrc and insert
+
+```
+SCRIPTS="$HOME/Scripts"
+export SCRIPTS
+export PATH=$PATH:$SCRIPTS
+```
+
+4. Now all executable is recognized in terminal, since the $PATH include the folder.
+
+5. To add a shortcut, just insert a keyboard shortcut (ctrl+k example):
+
+```
+bind -x '"\C-k":my_kill.sh'
+```
+
+**OBS**:
+If you don't want to set the $PATH env variable, just place the a symbolic link in one of any listed directory by:
+
+```
+echo $PATH
+```
+To create the symbolic link, do inside the choose dir the following:
+
+```
+sudo ln -s $SCRIPTS/kill.sh my_kill.sh
+```
+
+==============================================================================
+
+TODO: update the following:
 
 »Insert the following command in "Startup applications" (in app menu)
 	sh /home/joaopedro/Scripts/my_init_script

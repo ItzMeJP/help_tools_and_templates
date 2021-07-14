@@ -14,14 +14,14 @@ export GIT_STUFF
 #CURRENT_ROS_WS="$ROS_WS_PKG/ws_drl"
 #CURRENT_ROS_WS="$ROS_WS_PKG/ws_devices"
 #CURRENT_ROS_WS="$ROS_WS_PKG/ws_graspit"
-#CURRENT_ROS_WS="$ROS_WS_PKG/ws_picking"
-CURRENT_ROS_WS="$ROS_WS_PKG/ws_xweld"
+CURRENT_ROS_WS="$ROS_WS_PKG/ws_picking"
+#CURRENT_ROS_WS="$ROS_WS_PKG/ws_xweld"
 export CURRENT_ROS_WS
 
 # ROS STUFFs
 #source /opt/ros/noetic/setup.bash
-source $CURRENT_ROS_WS/devel_release/setup.bash
-#source $CURRENT_ROS_WS/devel_debug/setup.bash
+#source $CURRENT_ROS_WS/devel_release/setup.bash
+source $CURRENT_ROS_WS/devel_debug/setup.bash
 
 ## To Simox
 #QHULL_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu/"
@@ -60,8 +60,8 @@ alias ggt='cd $GIT_STUFF'
 alias gfs='cd $CURRENT_FROM_SOURCE'
 alias bashporra='source /home/joaopedro/.bashrc'
 alias vembash='atom /home/joaopedro/.bashrc'
-alias cade='dpkg -S'
-alias tenho='dpkg -l'
+alias cade='dpkg -S' # indica: [responsável origem : caminho][válido para setups com apt-get]
+alias tenho='dpkg -l' # [válido para setups com apt-get]
 alias amarelo='redshift -O 2500'
 alias normal='redshift -x'
 alias go_to_icons_folder='cd /home/joaopedro/.local/share/applications'
