@@ -1,0 +1,15 @@
+Download (noetic/devel branch)
+https://github.com/graspit-simulator/graspit_interface/tree/noetic-devel
+git clone https://github.com/graspit-simulator/graspit_commander.git
+
+In graspit interface CMake, comemnt
+find_package(graspit)
+
+and comment this ...
+#${GRASPIT_INCLUDE_DIRS}
+
+to add this bellow (hard code):
+/home/joaopedro/fromSourceTools/graspit/include
+
+
+(TODO: melhorar isto do CMAKE)

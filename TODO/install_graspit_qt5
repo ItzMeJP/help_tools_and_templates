@@ -1,0 +1,56 @@
+
+
+Download it here (branch qt5)
+https://github.com/graspit-simulator/graspit/tree/qt5
+
+Run /ui/install_linux.sh
+
+Run
+sudo apt-get install libsoqt520-dev libcoin-dev
+
+build it
+
+cd graspit
+export GRASPIT=$PWD
+mkdir build
+cd build
+cmake .. -DBUILD_SHARED_LIBS=true -DCMAKE_INSTALL_PREFIX=<your-graspit-dir>
+make -j5
+make install
+
+Add in bashrc
+
+#To GraspIt
+
+LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH
+
+GRASPIT="$CURRENT_FROM_SOURCE/graspit"
+#GRASPIT="$CURRENT_ROS_WS/src/grasp_synthesis"
+export GRASPIT
+
+Va ao /bin (ubuntu 20) e rode
+sudo ln -s $CURRENT_FROM_SOURCE/graspit/build/graspit_simulator graspit_simulator
+
+
+cmalist tempalte
+
+cmake_minimum_required(VERSION 2.8.3)
+project(your_project)
+find_package (graspit REQUIRED)
+include_directories(
+    ${graspit_INCLUDE_DIRS}
+)
+add_executable(your_program src/your_source.cpp)
+target_link_libraries(your_program
+   ${graspit_LIBRARIES}
+)
+
+build package
+
+cmake -DCMAKE_PREFIX_PATH=<your-graspit-dir>
+make
+
+or with ROS
+
+catkin_make -DCMAKE_PREFIX_PATH=<your-graspit-dir>
