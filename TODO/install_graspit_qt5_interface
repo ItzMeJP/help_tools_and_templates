@@ -2,6 +2,8 @@ Download (noetic/devel branch)
 https://github.com/graspit-simulator/graspit_interface/tree/noetic-devel
 git clone https://github.com/graspit-simulator/graspit_commander.git
 
+
+# se fizer sudo make install no build do graspit, nao eh necessario fazer o proximo passo
 In graspit interface CMake, comemnt
 find_package(graspit)
 

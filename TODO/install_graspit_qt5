@@ -3,12 +3,12 @@
 Download it here (branch qt5)
 https://github.com/graspit-simulator/graspit/tree/qt5
 
-Run /ui/install_linux.sh
+Run /ci/install_linux.sh
 
 Run
 sudo apt-get install libsoqt520-dev libcoin-dev
 
-build it
+build it as follow:
 
 cd graspit
 export GRASPIT=$PWD
@@ -16,9 +16,9 @@ mkdir build
 cd build
 cmake .. -DBUILD_SHARED_LIBS=true -DCMAKE_INSTALL_PREFIX=<your-graspit-dir>
 make -j5
-make install
+sudo make install
 
-Add in bashrc
+Add in bashrc the following
 
 #To GraspIt
 
