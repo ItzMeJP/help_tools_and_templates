@@ -1,0 +1,14 @@
+Para instalar o QT, descarregue:
+
+https://www.qt.io/download-open-source?hsCtaTracking=9f6a2170-a938-42df-a8e2-a9f0b1d6cdce%7C6cb0de4f-9bb5-4778-ab02-bfb62735f3e5
+
+Habilite sua execução e rode. A app MainentanceTool irá abrir. Selecione Qt6 Preview. Ele ira instalar tudo necessário.
+Ele também vai configurar o Qt no local correto. Por exemplo:
+/home/joaopedro/Qt/Tools/QtCreator/bin
+
+Na hora de abrir o projeto, aparecerá uma janela para configuração. Selecione a versão 5.12.2, que não é preview mas ja estará incluida todas deps.
+
+
+Para desinstalar pode-se utilizar a propria app. Tambem pode ser util utilizar o apt-get remove.
+
+Delete tambem o .config/Qt para limprar todas configs.
