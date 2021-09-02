@@ -10,11 +10,11 @@ export ROS_WS_PKG
 GIT_STUFF="$HOME/GitStuff"
 export GIT_STUFF
 
-#CURRENT_ROS_WS="$ROS_WS_PKG/ws_pcl"
+#CURRENT_ROS_WS="$ROS_WS_PKG/ws_common"
 #CURRENT_ROS_WS="$ROS_WS_PKG/ws_drl"
 #CURRENT_ROS_WS="$ROS_WS_PKG/ws_devices"
 #CURRENT_ROS_WS="$ROS_WS_PKG/ws_graspit"
-CURRENT_ROS_WS="$ROS_WS_PKG/ws_picking"
+CURRENT_ROS_WS="$ROS_WS_PKG/ws_grasping"
 #CURRENT_ROS_WS="$ROS_WS_PKG/ws_xweld"
 export CURRENT_ROS_WS
 
@@ -30,9 +30,6 @@ source $CURRENT_ROS_WS/devel_debug/setup.bash
 CURRENT_FROM_SOURCE="/home/joaopedro/fromSourceTools"
 export CURRENT_FROM_SOURCE
 
-#Updating exec PATH
-export PATH=$PATH:$SCRIPTS
-
 #To new Boost home folder
 #BOOST_ROOT="$CURRENT_FROM_SOURCE/boost-1-65/"
 #export BOOST_ROOT
@@ -45,7 +42,7 @@ GRASPIT="$CURRENT_FROM_SOURCE/graspit"
 #GRASPIT="$CURRENT_ROS_WS/src/grasp_synthesis"
 export GRASPIT
 
-MIMIC_GRASPING_SERVER_ROOT="$HOME/clion_ws/mimic_grasping_server"
+MIMIC_GRASPING_SERVER_ROOT="$HOME/clion_ws/mimic_grasping_api"
 export MIMIC_GRASPING_SERVER_ROOT
 
 
@@ -70,7 +67,7 @@ alias normal='redshift -x'
 alias go_to_icons_folder='cd /home/joaopedro/.local/share/applications'
 alias amarrar_processo='echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope'
 alias vemfriday='ssh user@172.16.10.1' #pass 5dpo #To Friday
-alias verificarlog='dmesg'
+alias verificarkernellog='dmesg'
 alias listarepositorio='atom /etc/apt/sources.list'
 
 # Alias functions (alias with parameters...)
@@ -79,12 +76,17 @@ function qualgcc(){ # check with which gcc version and .bin of .so was copiled
 }
 export -f qualgcc
 
+function devinfo(){ # check the device data info. Usefull to add rule at /etc/udev/rules.d
+  udevadm info -a -p  $(udevadm info -q path -n $1)
+}
+export -f devinfo
+
 # Related to Nvidea Configuration
 alias desligarXserver='sudo systemctl stop lightdm.service'
 alias ubuntuKernelVersion='echo "In Usage: "&&uname -r &&echo "Installed list: "&&dpkg --list | grep linux-image'
 alias nvideaInfo='nvcc --version&&nvidia-smi'
 
-bind -x '"\C-k":my_kill.sh' #to kill process
+bind -x '"\C-k":my_kill' #to kill process
 bind -x '"\C-b":catkin build' #to build ros pkgs
 
 #unset CMAKE_PREFIX_PATH
@@ -92,7 +94,7 @@ bind -x '"\C-b":catkin build' #to build ros pkgs
 
 #Bin-Picking
 #Photoneo Sensor
-#export PHOXI_CONTROL_PATH=/opt/PhotoneoPhoXiControl
+export PHOXI_CONTROL_PATH=/opt/PhotoneoPhoXiControl-
 #OpenRave
 #source `/my/openraveinstall/bin/openrave-config --share-dir`/openrave.bash
 #export PYTHONPATH=$PYTHONPATH:`openrave-config --python-dir`
