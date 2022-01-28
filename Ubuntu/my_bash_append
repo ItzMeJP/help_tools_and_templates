@@ -16,6 +16,8 @@ export GIT_STUFF
 #CURRENT_ROS_WS="$ROS_WS_PKG/ws_graspit"
 CURRENT_ROS_WS="$ROS_WS_PKG/ws_grasping"
 #CURRENT_ROS_WS="$ROS_WS_PKG/ws_xweld"
+#CURRENT_ROS_WS="$ROS_WS_PKG/ws_calibrations"
+
 export CURRENT_ROS_WS
 
 # ROS STUFFs
@@ -45,6 +47,7 @@ export GRASPIT
 MIMIC_GRASPING_SERVER_ROOT="$HOME/clion_ws/mimic_grasping_api"
 export MIMIC_GRASPING_SERVER_ROOT
 
+export EDITOR=atom
 
 #ROS Adresses
 #ROS_IP=172.16.46.252 #To Friday
@@ -66,20 +69,41 @@ alias amarelo='redshift -O 2500'
 alias normal='redshift -x'
 alias go_to_icons_folder='cd /home/joaopedro/.local/share/applications'
 alias amarrar_processo='echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope'
-alias vemfriday='ssh user@172.16.10.1' #pass 5dpo #To Friday
+alias vemfriday='ssh user@172.16.10.1' #pass 5dpo #To
+alias vem6dmimic='ssh mimic@172.16.47.113' #pass mimic
 alias verificarkernellog='dmesg'
 alias listarepositorio='atom /etc/apt/sources.list'
 
 # Alias functions (alias with parameters...)
-function qualgcc(){ # check with which gcc version and .bin of .so was copiled
+# check with which gcc version and .bin of .so was copiled
+# param: code file name
+function qualgcc(){
   strings -a $1 | grep "GCC"
 }
 export -f qualgcc
 
-function devinfo(){ # check the device data info. Usefull to add rule at /etc/udev/rules.d
+ # check the device data info. Usefull to add rule at /etc/udev/rules.d
+ # param: file name
+function informacao_dispositivo(){
   udevadm info -a -p  $(udevadm info -q path -n $1)
 }
-export -f devinfo
+export -f informacao_dispositivo
+
+#check with a TCP or UDP port is in usage...
+# param: port number
+function uso_camada_transporte(){
+  netstat -tulpn | grep $1
+}
+export -f uso_camada_transporte
+
+#listen a TCP or UDP port...
+# param1: ip
+# param2: port number
+function ouvir_camada_transporte(){
+  netstat -tulpn | grep $1
+  nc -lvu $1 $2
+}
+export -f uso_camada_transporte
 
 # Related to Nvidea Configuration
 alias desligarXserver='sudo systemctl stop lightdm.service'
