@@ -1,4 +1,9 @@
-###################################################################### JP
+#!/usr/bin/env bash
+
+# Personal extension of .bashrc
+# How to include : Just add in .bashrc the next line
+#                        . ~/.my_bashrc (include the dot before the file name!!!)
+#
 
 # MY ENV VARIABLES
 SCRIPTS="$HOME/Scripts"
@@ -62,14 +67,15 @@ alias gws='cd $CURRENT_ROS_WS/src'
 alias ggt='cd $GIT_STUFF'
 alias gfs='cd $CURRENT_FROM_SOURCE'
 alias bashporra='source /home/joaopedro/.bashrc'
-alias vembash='atom /home/joaopedro/.bashrc'
+alias vembash='atom /home/joaopedro/.my_bashrc'
 alias cade='dpkg -S' # indica: [responsável origem : caminho][válido para setups com apt-get]
 alias tenho='dpkg -l' # [válido para setups com apt-get]
 alias amarelo='redshift -O 2500'
 alias normal='redshift -x'
 alias go_to_icons_folder='cd /home/joaopedro/.local/share/applications'
 alias amarrar_processo='echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope'
-alias vemfriday='ssh user@172.16.10.1' #pass 5dpo #To
+alias vemfriday_nuc='ssh user@172.16.10.1' #pass 5dpo
+alias vemfriday_asus='ssh criis@172.16.10.7' #pass 5dpo5dpo
 alias vem6dmimic='ssh mimic@172.16.47.113' #pass mimic
 alias verificarkernellog='dmesg'
 alias listarepositorio='atom /etc/apt/sources.list'
@@ -110,11 +116,16 @@ alias desligarXserver='sudo systemctl stop lightdm.service'
 alias ubuntuKernelVersion='echo "In Usage: "&&uname -r &&echo "Installed list: "&&dpkg --list | grep linux-image'
 alias nvideaInfo='nvcc --version&&nvidia-smi'
 
+#Related to DHCP server
+alias iniciarDHCP='systemctl start isc-dhcp-server'
+alias pararDHCP='systemctl stop isc-dhcp-server'
+alias reiniciarDHCP='systemctl restart isc-dhcp-server'
+alias configurarDHCP='atom /etc/dhcp/dhcpd.conf& atom /etc/default/isc-dhcp-server'
+
 bind -x '"\C-k":my_kill' #to kill process
 bind -x '"\C-b":catkin build' #to build ros pkgs
 
 #unset CMAKE_PREFIX_PATH
-
 
 #Bin-Picking
 #Photoneo Sensor
