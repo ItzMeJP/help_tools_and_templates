@@ -19,9 +19,11 @@ export GIT_STUFF
 #CURRENT_ROS_WS="$ROS_WS_PKG/ws_drl"
 #CURRENT_ROS_WS="$ROS_WS_PKG/ws_devices"
 #CURRENT_ROS_WS="$ROS_WS_PKG/ws_graspit"
-CURRENT_ROS_WS="$ROS_WS_PKG/ws_grasping"
+#CURRENT_ROS_WS="$ROS_WS_PKG/ws_grasping"
 #CURRENT_ROS_WS="$ROS_WS_PKG/ws_xweld"
 #CURRENT_ROS_WS="$ROS_WS_PKG/ws_calibrations"
+CURRENT_ROS_WS="$ROS_WS_PKG/ws_missions"
+
 
 export CURRENT_ROS_WS
 
@@ -63,8 +65,10 @@ export EDITOR=atom
 #ROS_IP=localhost
 #export ROS_IP
 
-#ROS_MASTER_URI=http://172.16.10.1:11311 #To Friday
-#export ROS_MASTER_URI
+
+PATH=$PATH:/usr/local/cuda-11.4/bin
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-11.4/lib64
+export CUDADIR=/usr/local/cuda-11.4
 
 # MY STUFFs
 alias gws='cd $CURRENT_ROS_WS/src'
@@ -82,90 +86,8 @@ alias amarelo='redshift -O 2500'
 alias normal='redshift -x'
 alias go_to_icons_folder='cd /home/joaopedro/.local/share/applications'
 alias amarrar_processo='echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope'
-alias vemfriday_nuc='ssh user@172.16.10.1' #pass 5dpo
-alias vemfriday_asus='ssh criis@172.16.10.7' #pass 5dpo5dpo
-alias vem6dmimic='ssh mimic@172.16.47.113' #pass mimic
-alias verificarkernellog='dmesg'
-alias listarepositorio='atom /etc/apt/sources.list'
-
-# Alias functions (alias with parameters...)
-# check with which gcc version and .bin of .so was copil#!/usr/bin/env bash
-
-# Personal extension of .bashrc
-# How to include : Just add in .bashrc the next line
-#                        . ~/.my_bashrc (include the dot before the file name!!!)
-#
-
-# MY ENV VARIABLES
-SCRIPTS="$HOME/Scripts"
-export SCRIPTS
-
-ROS_WS_PKG="$HOME/ros_ws"
-export ROS_WS_PKG
-
-GIT_STUFF="$HOME/GitStuff"
-export GIT_STUFF
-
-#CURRENT_ROS_WS="$ROS_WS_PKG/ws_common"
-#CURRENT_ROS_WS="$ROS_WS_PKG/ws_drl"
-#CURRENT_ROS_WS="$ROS_WS_PKG/ws_devices"
-#CURRENT_ROS_WS="$ROS_WS_PKG/ws_graspit"
-CURRENT_ROS_WS="$ROS_WS_PKG/ws_grasping"
-#CURRENT_ROS_WS="$ROS_WS_PKG/ws_xweld"
-#CURRENT_ROS_WS="$ROS_WS_PKG/ws_calibrations"
-
-export CURRENT_ROS_WS
-
-# ROS STUFFs
-#source /opt/ros/noetic/setup.bash
-#source $CURRENT_ROS_WS/devel_release/setup.bash
-source $CURRENT_ROS_WS/devel_debug/setup.bash
-
-## To Simox
-#QHULL_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu/"
-#export QHULL_LIBRARY_PATH
-
-CURRENT_FROM_SOURCE="/home/joaopedro/fromSourceTools"
-export CURRENT_FROM_SOURCE
-
-#To new Boost home folder
-#BOOST_ROOT="$CURRENT_FROM_SOURCE/boost-1-65/"
-#export BOOST_ROOT
-
-LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH
-
-#To GraspIt
-GRASPIT="$CURRENT_FROM_SOURCE/graspit"
-#GRASPIT="$CURRENT_ROS_WS/src/grasp_synthesis"
-export GRASPIT
-
-MIMIC_GRASPING_SERVER_ROOT="$HOME/clion_ws/mimic_grasping_api"
-export MIMIC_GRASPING_SERVER_ROOT
-
-export EDITOR=atom
-
-#ROS Adresses
-#ROS_IP=172.16.46.252 #To Friday
-#ROS_IP=localhost
-#export ROS_IP
-
-#ROS_MASTER_URI=http://172.16.10.1:11311 #To Friday
-#export ROS_MASTER_URI
-
-# MY STUFFs
-alias gws='cd $CURRENT_ROS_WS/src'
-alias ggt='cd $GIT_STUFF'
-alias gfs='cd $CURRENT_FROM_SOURCE'
-alias bashporra='source /home/joaopedro/.bashrc'
-alias vembash='atom /home/joaopedro/.my_bashrc'
-alias cade='dpkg -S' # indica: [responsável origem : caminho][válido para setups com apt-get]
-alias tenho='dpkg -l' # [válido para setups com apt-get]
-alias amarelo='redshift -O 2500'
-alias normal='redshift -x'
-alias go_to_icons_folder='cd /home/joaopedro/.local/share/applications'
-alias amarrar_processo='echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope'
-alias vemfriday_nuc='ssh user@172.16.10.1' #pass 5dpo
+#alias vemfriday_nuc='ssh user@172.16.10.1' #pass 5dpo
+alias vemfriday_nuc='ssh user@192.168.214.25' #pass 5dpo
 alias vemfriday_asus='ssh criis@172.16.10.7' #pass 5dpo5dpo
 alias vem6dmimic='ssh mimic@172.16.47.113' #pass mimic
 alias verificarkernellog='dmesg'
@@ -186,71 +108,7 @@ function informacao_dispositivo(){
 }
 export -f informacao_dispositivo
 
-#check with a TCP or UDP port is in usage...
-# param: port number
-function uso_camada_transporte(){
-  netstat -tulpn | grep $1
-}
-export -f uso_camada_transporte
-
-#listen a TCP or UDP port...
-# param1: ip
-# param2: port number
-function ouvir_camada_transporte(){
-  netstat -tulpn | grep $1
-  nc -lvu $1 $2
-}
-export -f uso_camada_transporte
-
-# Related to Nvidea Configuration
-alias desligarXserver='sudo systemctl stop lightdm.service'
-alias ubuntuKernelVersion='echo "In Usage: "&&uname -r &&echo "Installed list: "&&dpkg --list | grep linux-image'
-alias nvideaInfo='nvcc --version&&nvidia-smi'
-
-#Related to DHCP server
-alias iniciarDHCP='systemctl start isc-dhcp-server'
-alias pararDHCP='systemctl stop isc-dhcp-server'
-alias reiniciarDHCP='systemctl restart isc-dhcp-server'
-alias configurarDHCP='atom /etc/dhcp/dhcpd.conf& atom /etc/default/isc-dhcp-server'
-
-bind -x '"\C-k":my_kill' #to kill process
-bind -x '"\C-b":catkin build' #to build ros pkgs
-
-#unset CMAKE_PREFIX_PATH
-
-#Bin-Picking
-#Photoneo Sensor
-export PHOXI_CONTROL_PATH=/opt/PhotoneoPhoXiControl-
-#OpenRave
-#source `/my/openraveinstall/bin/openrave-config --share-dir`/openrave.bash
-#export PYTHONPATH=$PYTHONPATH:`openrave-config --python-dir`
-
-echo "»»"
-echo "»» Current CMake Prefix Path:"
-echo "»»" $CMAKE_PREFIX_PATH
-echo "»» Current ROS_MASTER_URI Path:"
-echo "»»" $ROS_MASTER_URI
-echo "»» Current ROS_IP Path:"
-echo "»»" $ROS_IP
-echo "»»"
-
-#cat /home/joaopedro/Desktop/Continuar
-#alias code_name="command"
-ed
-# param: code file name
-function qualgcc(){
-  strings -a $1 | grep "GCC"
-}
-export -f qualgcc
-
- # check the device data info. Usefull to add rule at /etc/udev/rules.d
- # param: file name
-function informacao_dispositivo(){
-  udevadm info -a -p  $(udevadm info -q path -n $1)
-}
-export -f informacao_dispositivo
-
-#check with a TCP or UDP port is in usage...
+#check if a TCP or UDP port is in usage...
 # param: port number
 function uso_camada_transporte(){
   netstat -tulpn | grep $1
@@ -272,17 +130,50 @@ function compilar_rpm(){
   rpmbuild -ba --clean $1
 }
 
+#change the version of a software in usage
+# param1: software name
+function troca_para_mim(){
+    sudo update-alternatives --config $1
+}
+
+#change the version of a software in usage
+# param1: path to install
+# param2: software alias name
+# param3: software path with version
+# param3: priority number
+
+function adiciona_para_mim(){
+    sudo update-alternatives --install $1 $2 $3 $4
+}
+
+
+#change the version of a software in usage
+# param1: path to private key
+#Example : ~/.ssh/toGitHubOnly
+
+function associar_ssh_key_git(){
+    git config core.sshCommand "ssh -i $1"
+}
+
+
+
 
 # Related to Nvidea Configuration
 alias desligarXserver='sudo systemctl stop lightdm.service'
 alias ubuntuKernelVersion='echo "In Usage: "&&uname -r &&echo "Installed list: "&&dpkg --list | grep linux-image'
-alias nvideaInfo='nvcc --version&&nvidia-smi'
+alias nvidiaInfo='nvcc --version&&nvidia-smi'
 
 #Related to DHCP server
 alias iniciarDHCP='systemctl start isc-dhcp-server'
 alias pararDHCP='systemctl stop isc-dhcp-server'
 alias reiniciarDHCP='systemctl restart isc-dhcp-server'
 alias configurarDHCP='atom /etc/dhcp/dhcpd.conf& atom /etc/default/isc-dhcp-server'
+
+alias vemVPN='sudo openvpn --config /home/joaopedro/VPN/inesctec_202103.ovpn'
+alias meshlab='flatpak run net.meshlab.MeshLab'
+alias ativar_agente_ssh='eval $(ssh-agent -s)'
+alias liste_ssh_keys='ssh-add -l'
+
 
 bind -x '"\C-k":my_kill' #to kill process
 bind -x '"\C-b":catkin build' #to build ros pkgs
@@ -296,6 +187,13 @@ export PHOXI_CONTROL_PATH=/opt/PhotoneoPhoXiControl-
 #source `/my/openraveinstall/bin/openrave-config --share-dir`/openrave.bash
 #export PYTHONPATH=$PYTHONPATH:`openrave-config --python-dir`
 
+#ROS_MASTER_URI=http://10.31.2.59:11311 #To Friday
+#export ROS_IP=172.16.48.233
+
+#ROS_MASTER_URI=http://192.168.214.25:11311 #To Friday
+#export ROS_IP=10.40.217.221
+
+
 echo "»»"
 echo "»» Current CMake Prefix Path:"
 echo "»»" $CMAKE_PREFIX_PATH
@@ -307,3 +205,8 @@ echo "»»"
 
 #cat /home/joaopedro/Desktop/Continuar
 #alias code_name="command"
+
+# ROSCONSOLE Output
+export ROSCONSOLE_FORMAT='[${severity}] [${node}] [${time}]: ${message} | ${file}:${function}:${line}'
+#export ROSCONSOLE_CONFIG_FILE='/home/joaopedro/.ros/config/rosconsole.config'
+export ROSCONSOLE_STDOUT_LINE_BUFFERED=1
