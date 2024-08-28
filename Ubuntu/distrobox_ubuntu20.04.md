@@ -10,7 +10,7 @@ By using Podman, Distrobox can create containers that are tightly integrated wit
 ## Prerequisite
 
 <span style="color: red;">
-The specific versions of the tools mentioned in this guide are required only for Ubuntu 20.04. This is because the latest versions of both Distrobox and Podman do not support this OS version. If you are using a more recent version of Ubuntu, you can use the latest versions of these tools without any issues.
+❗️ The specific versions of the tools mentioned in this guide are required only for Ubuntu 20.04. This is because the latest versions of both Distrobox and Podman do not support this OS version. If you are using a more recent version of Ubuntu, you can use the latest versions of these tools without any issues.
 </span>
 
 The current setting up was tested with (click on the following link to install each dependency):
@@ -34,7 +34,7 @@ echo 'export DBX_CONTAINER_MANAGER=podman' >> ~/.bashrc
 source ~/.bashrc
 ```
 
->  ### NOTE
+> ➤ **NOTE**:
 > It is possible to create a configuration file to distrobox, thus avoiding editing env variables.
 > Configuration files can be placed in the following paths, from the least important to the most important:
 >
@@ -93,7 +93,7 @@ source ~/.bashrc
    podman logs -f ubuntu_jazzy
    ```
 
-   > ### NOTE:
+   >  ➤ **NOTE**:
    >If a error occur while entering into the distrobox regarding the `mesalib` dependencies, do the following:
    >
    >Access the distrobox bin folder by running:
