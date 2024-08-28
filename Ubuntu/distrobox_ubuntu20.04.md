@@ -24,15 +24,15 @@ Set the podman as main container manager by (useful in case you have Docker inst
 export DBX_CONTAINER_MANAGER=podman
 ```
 
-**NOTE:** include this command in `.bashrc` to guarantee the podman as main container manager:
-
-```bash
-echo 'export DBX_CONTAINER_MANAGER=podman' >> ~/.bashrc
-```
-
-```bash
-source ~/.bashrc
-```
+> ➤ **NOTE:** include this command in `.bashrc` to guarantee the podman as main container manager:
+>
+> ```bash
+> echo 'export DBX_CONTAINER_MANAGER=podman' >> ~/.bashrc
+> ```
+>
+> ```bash
+> source ~/.bashrc
+> ```
 
 > ➤ **NOTE**:
 > It is possible to create a configuration file to distrobox, thus avoiding editing env variables.
