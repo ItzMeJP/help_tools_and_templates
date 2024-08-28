@@ -81,7 +81,7 @@ source ~/.bashrc
     distrobox-enter ubuntu_jazzy 
     ```
    
-   > **NOTE:** If you encounter issues with password setup during access, try using sudo privileges by typing:
+   > ➤ **NOTE:** If you encounter issues with password setup during access, try using sudo privileges by typing:
    >
    >    ```bash
    >    distrobox-enter ubuntu_jazzy -a "-u 0"
