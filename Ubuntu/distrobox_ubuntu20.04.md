@@ -67,7 +67,7 @@ export DBX_CONTAINER_MANAGER=podman
 
    **The distrobox is created only once.** 
     ```bash
-    distrobox-create --name ubuntu_jazzy --image ros:jazzy
+    distrobox-create --name ubuntu_jazzy --image docker.io/ros:jazzy
     ```
    
 2. Check the created distroboxes by:
