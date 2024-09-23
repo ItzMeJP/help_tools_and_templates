@@ -78,7 +78,7 @@ For detailed guidance, refer to this [Go!SCAN 3D tutorial](https://www.youtube.c
 
 ### Step 6: Refining and Simplifying the 3D Model in Blender
 
-**Blender** is a versatile tool that can be used for refining and simplifying the 3D model exported from VXelements. The following script automates model scaling and polygon simplification using the **Decimate Modifier**.
+**Blender** is a versatile tool that can be used for refining and simplifying the 3D model exported from VXelements. The following script automates model **scaling** and **polygon** simplification using the **Decimate Modifier**.
 
 ### Blender Python Script
 To automate model simplification and scaling, follow these steps in Blender:
@@ -172,26 +172,71 @@ else:
 
 ## Post-Processing with MeshLab (Optional)
 
+--- 
+
 ### Step 7: Using MeshLab for Further Refinement
 
-**MeshLab** is an open-source software for advanced mesh processing. It is an excellent alternative or complement to Blender for cleaning and refining your 3D models. 
+**MeshLab** offers powerful tools for cleaning, simplifying, and optimizing 3D models. You can automate some of these processes using MeshLab’s scripting capabilities. Below is a script to align the object to its principal axis, scale it, and perform isotropic remeshing.
 
-1. **Install MeshLab** from [here](http://www.meshlab.net/).
-2. **Import Your 3D Model** into MeshLab (supports OBJ, STL, or PLY formats).
-3. **Refine the Model**:
-   - Simplify the mesh by reducing polygon count.
-   - Fix holes, fill gaps, and smooth surfaces.
-   - Apply filters to enhance the visual quality.
-4. **Export the Refined Model**: Once the edits are complete, export the model in your preferred format.
 
-### Why Use MeshLab?
-- **Advanced Repair Tools**: MeshLab provides sophisticated features for repairing models.
-- **Lightweight and Free**: MeshLab is user-friendly and suitable for tasks like mesh optimization and refinement.
-- **Smoothing and Cleaning**: Apply filters to clean up noisy surfaces and enhance smoothness.
+### How to Use the Script in MeshLab:
+1. **Install MeshLab** if you haven’t already: [Download MeshLab](http://www.meshlab.net/).
+2. **Open your 3D model** (OBJ, STL, or PLY) in MeshLab.
+3. **Load the Script**: Go to `Filters` > `Show current filter script` > `Import Script` and load the above script.
+4. **Run the `normalize.mlx` Script**: The script will automatically align the object to its principal axis and scale it down.
 
-**Important Tip**: In MeshLab, use the **Isotropic Explicit Remeshing** filter to standardize the point cloud distance, and align the axes using the **Transform Rotate** command for better alignment.
+5. **Run the `remesh.mlx` Script**: The script will automatically apply isotropic remeshing.
 
----
+
+### Script for Aligning and Scalling `normalize.mlx`
+```xml
+<!DOCTYPE FilterScript>
+<FilterScript>
+ <filter name="Transform: Align to Principal Axis">
+  <Param name="pointsFlag" value="true" type="RichBool" tooltip="If selected, only the vertices of the mesh are used to compute the Principal Axis. Mandatory for point clouds or for non water tight meshes" description="Use vertex"/>
+  <Param name="Freeze" value="true" type="RichBool" tooltip="The transformation is explicitly applied, and the vertex coordinates are actually changed" description="Freeze Matrix"/>
+  <Param name="allLayers" value="false" type="RichBool" tooltip="If selected the filter will be applied to all visible mesh layers" description="Apply to all visible Layers"/>
+ </filter>
+ <filter name="Transform: Scale, Normalize">
+  <Param name="axisX" value="0.001" type="RichFloat" tooltip="Scaling" description="X Axis"/>
+  <Param name="axisY" value="0.001" type="RichFloat" tooltip="Scaling" description="Y Axis"/>
+  <Param name="axisZ" value="0.001" type="RichFloat" tooltip="Scaling" description="Z Axis"/>
+  <Param name="uniformFlag" value="true" type="RichBool" tooltip="If selected an uniform scaling (the same for all the three axis) is applied (the X axis value is used)" description="Uniform Scaling"/>
+  <Param name="scaleCenter" value="0" enum_val0="origin" enum_val1="barycenter" enum_val2="custom point" type="RichEnum" tooltip="Choose a method" enum_cardinality="3" description="Center of scaling:"/>
+  <Param name="customCenter" y="0" type="RichPosition" tooltip="This scaling center is used only if the 'custom point' option is chosen." x="0" z="0" description="Custom center"/>
+  <Param name="unitFlag" value="true" type="RichBool" tooltip="If selected, the object is scaled to a box whose sides are at most 1 unit length" description="Scale to Unit bbox"/>
+  <Param name="Freeze" value="true" type="RichBool" tooltip="The transformation is explicitly applied, and the vertex coordinates are actually changed" description="Freeze Matrix"/>
+  <Param name="allLayers" value="true" type="RichBool" tooltip="If selected the filter will be applied to all visible mesh layers" description="Apply to all visible Layers"/>
+ </filter>
+</FilterScript>
+```
+
+### Script for Remeshing `remesh.mlx`
+```xml
+<!DOCTYPE FilterScript>
+<FilterScript>
+ <filter name="Remeshing: Isotropic Explicit Remeshing">
+  <Param name="Iterations" description="Iterations" tooltip="Number of iterations of the remeshing operations to repeat on the mesh." type="RichInt" value="1"/>
+  <Param name="Adaptive" description="Adaptive remeshing" tooltip="Toggles adaptive isotropic remeshing." type="RichBool" value="true"/>
+  <Param name="SelectedOnly" description="Remesh only selected faces" tooltip="If checked the remeshing operations will be applied only to the selected faces." type="RichBool" value="false"/>
+  <Param max="1.18695" name="TargetLen" description="Target Length" tooltip="Sets the target length for the remeshed mesh edges." min="0" type="RichAbsPerc" value="0.01187"/>
+  <Param name="FeatureDeg" description="Crease Angle" tooltip="Minimum angle between faces of the original to consider the shared edge as a feature to be preserved." type="RichFloat" value="30"/>
+  <Param name="CheckSurfDist" description="Check Surface Distance" tooltip="If toggled each local operation must deviate from original mesh by [Max. surface distance]" type="RichBool" value="false"/>
+  <Param max="1.18695" name="MaxSurfDist" description="Max. Surface Distance" tooltip="Maximal surface deviation allowed for each local operation" min="0" type="RichAbsPerc" value="0.01187"/>
+  <Param name="SplitFlag" description="Refine Step" tooltip="If checked the remeshing operations will include a refine step." type="RichBool" value="true"/>
+  <Param name="CollapseFlag" description="Collapse Step" tooltip="If checked the remeshing operations will include a collapse step." type="RichBool" value="true"/>
+  <Param name="SwapFlag" description="Edge-Swap Step" tooltip="If checked the remeshing operations will include a edge-swap step, aimed at improving the vertex valence of the resulting mesh." type="RichBool" value="true"/>
+  <Param name="SmoothFlag" description="Smooth Step" tooltip="If checked the remeshing operations will include a smoothing step, aimed at relaxing the vertex positions in a Laplacian sense." type="RichBool" value="true"/>
+  <Param name="ReprojectFlag" description="Reproject Step" tooltip="If checked the remeshing operations will include a step to reproject the mesh vertices on the original surface." type="RichBool" value="true"/>
+ </filter>
+</FilterScript>
+```
+
+### Key Steps in the Scripts:
+- **Alignment to Principal Axis**: Ensures the object is properly aligned for easier manipulation.
+- **Scaling**: Scales the model uniformly by a factor of 0.001. (Final object in meters)
+- **Isotropic Remeshing**: Simplifies and refines the model by adjusting the edge length and smoothing the mesh.
+
 
 ## Best Practices
 
