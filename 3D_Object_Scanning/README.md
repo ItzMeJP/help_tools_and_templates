@@ -2,7 +2,7 @@
 
 ## Table of Contents
 1. [Introduction](#introduction)
-2. [Requirements](#requirements)
+2. [Prerequisites](#prerequisites)
 3. [Steps to Scan an Object Using Go!SCAN 3D](#steps-to-scan-an-object-using-goscan-3d)
 4. [Post-Processing the Scan](#post-processing-the-scan)
 5. [Exporting the 3D Model](#exporting-the-3d-model)
@@ -20,17 +20,17 @@ The **Go!SCAN 3D** by Creaform enables users to quickly capture the geometry of 
 
 ---
 
-## Requirements
+## Prerequisites
 
 ### Hardware:
-- **Go!SCAN 3D** Scanner
+- **[Go!SCAN 3D](https://get.creaform3d.com/pt/lp-goscan-3d/?aw_campaign=20.90.1.0-[BRANDED]-Search-Portugal-PT&network=g&aw_device=c&keyword=goscan&creative=685513343732&matchtype=e&gad_source=1&gclid=Cj0KCQjwjNS3BhChARIsAOxBM6pBlGntOx8vFb4IuuO1vy7jgv9KyVQqpsbWVENnLmSAVQwoRIGZIp0aAjH0EALw_wcB)** Scanner
 - A **computer** meeting the minimum system requirements for 3D modeling
 - **Object** to scan
 
 ### Software:
-- **VXelements** (Creaform’s 3D scanning software)
-- **Blender** (optional for post-processing)
-- **MeshLab** (optional for post-processing)
+- **[VXelements](https://www.creaform3d.com/en/metrology-solutions/3d-applications-software-platforms)** (Creaform’s 3D scanning software)
+- **[Blender 3.0.1](https://www.blender.org/download/)** (optional for post-processing)
+- **[MeshLab v2023.12](http://www.meshlab.net/)** (optional for post-processing)
 
 ---
 
