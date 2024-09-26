@@ -2,15 +2,16 @@
 
 ## Table of Contents
 1. [Introduction](#introduction)
-2. [Prerequisites](#prerequisites)
-3. [Steps to Scan an Object Using Go!SCAN 3D](#steps-to-scan-an-object-using-goscan-3d)
-4. [Post-Processing the Scan](#post-processing-the-scan)
-5. [Exporting the 3D Model](#exporting-the-3d-model)
-6. [Post-Processing with Blender (Optional)](#post-processing-with-blender-optional)
-7. [Post-Processing with MeshLab (Optional)](#post-processing-with-meshlab-optional)
-8. [Best Practices](#best-practices)
-9. [Troubleshooting](#troubleshooting)
-10. [Conclusion](#conclusion)
+2. [Authors](#authors)
+3. [Prerequisites](#prerequisites)
+4. [Steps to Scan an Object Using Go!SCAN 3D](#steps-to-scan-an-object-using-goscan-3d)
+5. [Post-Processing the Scan](#post-processing-the-scan)
+6. [Exporting the 3D Model](#exporting-the-3d-model)
+7. [Post-Processing with Blender (Optional)](#post-processing-with-blender-optional)
+8. [Post-Processing with MeshLab (Optional)](#post-processing-with-meshlab-optional)
+9. [Best Practices](#best-practices)
+10. [Troubleshooting](#troubleshooting)
+11. [Conclusion](#conclusion)
 
 ---
 
@@ -19,6 +20,11 @@
 The **Go!SCAN 3D** by Creaform enables users to quickly capture the geometry of real-world objects and convert them into high-quality 3D models. This guide outlines the steps for scanning and refining these models using **VXelements**, with optional post-processing in **Blender** or **MeshLab** to optimize models for various applications like 3D printing and visualization.
 
 ---
+
+## Authors
+
+- Bruno Filipe Torres Costa
+- João Pedro Souza
 
 ## Prerequisites
 
@@ -29,8 +35,8 @@ The **Go!SCAN 3D** by Creaform enables users to quickly capture the geometry of 
 
 ### Software:
 - **[VXelements](https://www.creaform3d.com/en/metrology-solutions/3d-applications-software-platforms)** (Creaform’s 3D scanning software)
-- **[Blender 3.0.1](https://www.blender.org/download/)** (optional for post-processing)
-- **[MeshLab v2023.12](http://www.meshlab.net/)** (optional for post-processing)
+- **[Blender version 3.0.1](https://www.blender.org/download/)** (optional for post-processing)
+- **[MeshLab version v2023.12](https://www.meshlab.net/#download)** (optional for post-processing)
 
 ---
 
