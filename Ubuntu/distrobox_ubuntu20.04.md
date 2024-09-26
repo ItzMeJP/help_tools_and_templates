@@ -1,7 +1,11 @@
 # Setting Distrobox with Ubuntu 20.04 and Podman
 
+### Authors
+  - João Pedro Souza
+  - Pedro Melo
+
 ## Intro
-Distrobox is a versatile tool that allows users to run any Linux distribution inside their terminal, providing a seamless integration with the host system. It leverages containerization technologies like Podman or Docker to create and manage these environments. 
+Distrobox is a versatile tool that allows users to run any Linux distribution inside their terminal, providing a seamless integration with the host system. It leverages containerization technologies like Podman or Docker to create and manage these environments.
 
 By using Podman, Distrobox can create containers that are tightly integrated with the host, allowing for the sharing of the user’s HOME directory, external storage, USB devices, graphical applications (X11/Wayland), and audio12. This integration ensures that users can enjoy the flexibility of different Linux distributions while maintaining a cohesive and efficient workflow on their primary system.
 
@@ -43,9 +47,9 @@ export DBX_CONTAINER_MANAGER=podman
 >    - /etc/distrobox/distrobox.conf
 >    - ${HOME}/.config/distrobox/distrobox.conf
 >    - ${HOME}/.distroboxrc
-> 
+>
 > Example configuration file:
-> 
+>
 >```text
 >container_always_pull="1"
 >container_generate_entry=0
@@ -63,13 +67,13 @@ export DBX_CONTAINER_MANAGER=podman
 
 # Usage
 
-1. Create a distrobox called `ubuntu_jazzy` using a `ros:jazzy` image. 
+1. Create a distrobox called `ubuntu_jazzy` using a `ros:jazzy` image.
 
-   **The distrobox is created only once.** 
+   **The distrobox is created only once.**
     ```bash
     distrobox-create --name ubuntu_jazzy --image docker.io/ros:jazzy
     ```
-   
+
 2. Check the created distroboxes by:
     ```bash
     distrobox-list
@@ -78,9 +82,9 @@ export DBX_CONTAINER_MANAGER=podman
 3. To access a last created distrobox, just run the following command.:
 
     ```bash
-    distrobox-enter ubuntu_jazzy 
+    distrobox-enter ubuntu_jazzy
     ```
-   
+
    > ➤ **NOTE:** If you encounter issues with password setup during access, try using sudo privileges by typing:
    >
    >    ```bash
@@ -106,9 +110,15 @@ export DBX_CONTAINER_MANAGER=podman
    >
    > ```text
    >    apt-get install -y \
-   >        libegl1-mesa \ 
-   >        libgl1-mesa-glx 
+   >        libegl1-mesa \
+   >        libgl1-mesa-glx
    > ```
-   > 
-   
+   >
+
 5. To exit the distrobox, just type `exit`  inside the distrobox terminal.
+
+<span style="color: red;">
+
+❗️ To set the podman and distrobox with Nvidia, check this  [tutorial](distrobox_docker_nvidia.md)
+
+</span>
