@@ -4,10 +4,14 @@
 
 This guide will walk you through the process of setting up and training a machine learning model using Docker containers with GPU support. Leveraging containers ensures a consistent environment for development and deployment, while utilizing GPU acceleration significantly speeds up the training process.
 
+## Authors
+- Bruno Filipe Torres Costa
+- João Pedro Souza
+
 ## Prerequisites
 
-- **Docker**: Install Docker from [here](https://docs.docker.com/get-docker/).
-- **GPU Access for Docker Containers**: Ensure your system has GPU support configured for Docker. Follow instructions [here](https://github.com/brumocas/Docker/tree/main/GPU).
+- **Docker version 27.3.1**: Install Docker from [here](https://docs.docker.com/get-docker/).
+- **GPU Access for Docker Containers**: Ensure your system has GPU support configured for Docker. Follow instructions [here](https://github.com/ItzMeJP/help_tools_and_templates/blob/dev/Ubuntu/gpu_access_docker.md).
 
 ## Setup
 
@@ -91,7 +95,7 @@ function docker_run_com_interface(){
   sudo docker run --gpus all -ti --net=host --ipc=host -e DISPLAY=$DISPLAY -v $2:$3 -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:/tmp/.XAuthority -e XAUTHORITY=/tmp/.XAuthority --env="QT_X11_NO_MITSHM=1" $1 /bin/bash
 }
 
-# Usage: ./run_container.sh <docker_image_name> <host_path> <container_path>
+# Usage: ./run_container.sh <host_path> <container_path>
 docker_run_com_interface ml-gpu-container $1 $2
 ```
 
