@@ -2,12 +2,16 @@
 
 This guide explains how to give Docker containers access to GPUs, which is essential for tasks involving machine learning, data processing, or any GPU-accelerated computation.
 
+## Authors
+- Bruno Filipe Torres Costa
+- João Pedro Souza
+
 ## Prerequisites
 
-1. **NVIDIA GPU:** Ensure that you have an NVIDIA GPU installed on your machine.
-2. **NVIDIA Driver:** Install the appropriate NVIDIA driver for your GPU.
-3. **Docker:** Make sure Docker is installed on your system.
-4. **NVIDIA Docker Toolkit (nvidia-docker):** This toolkit allows Docker to use NVIDIA GPUs.
+1. **NVIDIA GPU:** Ensure that you have an NVIDIA GPU installed on your machine [utilized [Nvidia rtx4050](https://www.notebookcheck.net/NVIDIA-GeForce-RTX-4050-Laptop-GPU-Benchmarks-and-Specs.675695.0.html)].
+2. **NVIDIA Driver:** Install the appropriate NVIDIA driver for your GPU [[Nvidia official Drivers website](https://www.nvidia.com/en-us/drivers/)].
+3. **Docker:** Make sure Docker is installed on your system [utilized [docker version 27.3.1](https://docs.docker.com/engine/release-notes/27/)].
+4. **NVIDIA Docker Toolkit (nvidia-docker):** This toolkit allows Docker to use NVIDIA GPUs [utilized [NVIDIA Docker Toolkit version 12.6](https://developer.nvidia.com/cuda-downloads)].
 
 ## Step-by-Step Instructions
 
