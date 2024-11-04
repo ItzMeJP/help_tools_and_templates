@@ -1,0 +1,19 @@
+<!DOCTYPE FilterScript>
+<FilterScript>
+ <filter name="Transform: Align to Principal Axis">
+    <Param name="pointsFlag" value="true" type="RichBool" tooltip="If selected, only the vertices of the mesh are used to compute the Principal Axis. Mandatory for point clouds or for non water tight meshes" description="Use vertex"/>
+  <Param name="Freeze" value="true" type="RichBool" tooltip="The transformation is explicitly applied, and the vertex coordinates are actually changed" description="Freeze Matrix"/>
+  <Param name="allLayers" value="false" type="RichBool" tooltip="If selected the filter will be applied to all visible mesh layers" description="Apply to all visible Layers"/>
+ </filter>
+ <filter name="Transform: Scale, Normalize">
+  <Param value="0.001" type="RichFloat" name="axisX" description="X Axis" tooltip="Scaling"/>
+  <Param value="0.001" type="RichFloat" name="axisY" description="Y Axis" tooltip="Scaling"/>
+  <Param value="0.001" type="RichFloat" name="axisZ" description="Z Axis" tooltip="Scaling"/>
+  <Param value="true" type="RichBool" name="uniformFlag" description="Uniform Scaling" tooltip="If selected an uniform scaling (the same for all the three axis) is applied (the X axis value is used)"/>
+  <Param value="0" type="RichEnum" enum_val2="custom point" name="scaleCenter" enum_val1="barycenter" description="Center of scaling:" enum_val0="origin" tooltip="Choose a method" enum_cardinality="3"/>
+  <Param type="RichPosition" z="0" name="customCenter" description="Custom center" tooltip="This scaling center is used only if the 'custom point' option is chosen." x="0" y="0"/>
+  <Param value="false" type="RichBool" name="unitFlag" description="Scale to Unit bbox" tooltip="If selected, the object is scaled to a box whose sides are at most 1 unit length"/>
+  <Param value="true" type="RichBool" name="Freeze" description="Freeze Matrix" tooltip="The transformation is explicitly applied, and the vertex coordinates are actually changed"/>
+  <Param value="false" type="RichBool" name="allLayers" description="Apply to all visible Layers" tooltip="If selected the filter will be applied to all visible mesh layers"/>
+ </filter>
+</FilterScript>
