@@ -9,34 +9,11 @@
 SCRIPTS="$HOME/Scripts"
 export SCRIPTS
 
-ROS_WS_PKG="$HOME/ros_ws"
-export ROS_WS_PKG
 
 GIT_STUFF="$HOME/GitStuff"
 export GIT_STUFF
 
-#CURRENT_ROS_WS="$ROS_WS_PKG/ws_common"
-#CURRENT_ROS_WS="$ROS_WS_PKG/ws_drl"
-#CURRENT_ROS_WS="$ROS_WS_PKG/ws_devices"
-#CURRENT_ROS_WS="$ROS_WS_PKG/ws_graspit"
-#CURRENT_ROS_WS="$ROS_WS_PKG/ws_grasping"
-#CURRENT_ROS_WS="$ROS_WS_PKG/ws_xweld"
-#CURRENT_ROS_WS="$ROS_WS_PKG/ws_calibrations"
-CURRENT_ROS_WS="$ROS_WS_PKG/ws_missions"
-
-
-export CURRENT_ROS_WS
-
-# ROS STUFFs
-#source /opt/ros/noetic/setup.bash
-#source $CURRENT_ROS_WS/devel_release/setup.bash
-source $CURRENT_ROS_WS/devel_debug/setup.bash
-
-## To Simox
-#QHULL_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu/"
-#export QHULL_LIBRARY_PATH
-
-CURRENT_FROM_SOURCE="/home/joaopedro/fromSourceTools"
+CURRENT_FROM_SOURCE="$HOME/fromSourceTools"
 export CURRENT_FROM_SOURCE
 
 #To new Boost home folder
@@ -58,17 +35,72 @@ export MIMIC_GRASPING_SERVER_ROOT
 MIMIC_HEARTBIT_CHECKER_ROOT="$HOME/lazarus_ws/6dmimic_hearbit_checker"
 export MIMIC_HEARTBIT_CHECKER_ROOT
 
-export EDITOR=atom
-
-#ROS Adresses
-#ROS_IP=172.16.46.252 #To Friday
-#ROS_IP=localhost
-#export ROS_IP
-
-
 PATH=$PATH:/usr/local/cuda-11.4/bin
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-11.4/lib64
 export CUDADIR=/usr/local/cuda-11.4
+
+export EDITOR=atom
+
+
+
+
+#ROS STUFFS
+export ROS_1_DIR="/opt/ros/noetic"
+export ROS_2_DIR="/opt/ros/jazzy"
+
+export UBUNTU_VERSION=$(lsb_release -d | awk -F"\t" '{print $2}')
+echo "»»"
+echo "»» Ubuntu version: $UBUNTU_VERSION"
+
+export HOST_HOSTNAME="msi"
+export DISTROBOX_HOSTNAME_0="ubuntu_jazzy"
+
+# ROS 1 STUFFS
+if [[ $HOSTNAME == "$HOST_HOSTNAME" ]]; then
+
+    export ROS_WS_PKG="$HOME/ros_ws"
+    unset CMAKE_PREFIX_PATH
+
+
+    #export CURRENT_ROS_WS="$ROS_WS_PKG/ws_common"
+    #export CURRENT_ROS_WS="$ROS_WS_PKG/ws_drl"
+    #export CURRENT_ROS_WS="$ROS_WS_PKG/ws_devices"
+    #export CURRENT_ROS_WS="$ROS_WS_PKG/ws_graspit"
+    #export CURRENT_ROS_WS="$ROS_WS_PKG/ws_grasping"
+    #export CURRENT_ROS_WS="$ROS_WS_PKG/ws_xweld"
+    export CURRENT_ROS_WS="$ROS_WS_PKG/ws_calibrations"
+    #export CURRENT_ROS_WS="$ROS_WS_PKG/ws_missions"
+
+    #source $ROS_1_DIR/setup.bash
+    #source $CURRENT_ROS_WS/devel_release/setup.bash
+    source $CURRENT_ROS_WS/devel_debug/setup.bash
+    echo "»» Running ROS 1"
+    echo "»» Current CMake Prefix Path:"
+    echo "»»" $CMAKE_PREFIX_PATH
+
+elif [[ $HOSTNAME == "$DISTROBOX_HOSTNAME_0" ]]; then
+    unset CMAKE_PREFIX_PATH
+    ROS_WS_PKG="$HOME/ros2_ws"
+    export ROS_WS_PKG
+
+    #source /usr/share/colcon_cd/function/colcon_cd.sh
+
+    export CURRENT_ROS_WS="$ROS_WS_PKG/root_ws"
+    source $CURRENT_ROS_WS/install/setup.bash
+    #source $ROS_2_DIR/setup.bash
+
+    export ROS_DOMAIN_ID="0"
+
+
+    echo "»» Running ROS 2"
+    echo "»» Current Ament Prefix Path:"
+    echo "»»" $AMENT_PREFIX_PATH
+
+else
+    echo "»»"
+    echo "»» Running none ROS"
+fi
+
 
 # MY STUFFs
 alias gws='cd $CURRENT_ROS_WS/src'
@@ -76,8 +108,8 @@ alias ggt='cd $GIT_STUFF'
 alias gfs='cd $CURRENT_FROM_SOURCE'
 alias bashporra='source /home/joaopedro/.bashrc'
 alias vembash='atom /home/joaopedro/.my_bashrc'
-alias cade='dpkg -S' # indica: [responsável origem : caminho][válido para setups com apt-get]
-alias tenho='dpkg -l' # [válido para setups com apt-get]
+#alias cade='dpkg -S' # indica: [responsável origem : caminho][válido para setups com apt-get]
+#alias tenho='dpkg -l' # [válido para setups com apt-get]
 alias instalar_dpkg='dpkg -i' # inserir nome do pacote .deb!
 alias desinstalar_dpkg='dpkg -r' # inserir nome da aplicação/package
 alias dependencias_do_meu_exec='ldd'
@@ -87,11 +119,19 @@ alias normal='redshift -x'
 alias go_to_icons_folder='cd /home/joaopedro/.local/share/applications'
 alias amarrar_processo='echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope'
 #alias vemfriday_nuc='ssh user@172.16.10.1' #pass 5dpo
-alias vemfriday_nuc='ssh user@192.168.214.25' #pass 5dpo
-alias vemfriday_asus='ssh criis@172.16.10.7' #pass 5dpo5dpo
 alias vem6dmimic='ssh mimic@172.16.47.113' #pass mimic
 alias verificarkernellog='dmesg'
 alias listarepositorio='atom /etc/apt/sources.list'
+#alias para rules
+alias vem_regras='cd /etc/udev/rules.d'
+alias recarregar_rules='sudo udevadm control --reload-rules && sudo udevadm trigger'
+alias lista_usb='lsusb'
+alias monitore_imagem='podman logs -f'
+#verificar permissao da usb 'ls -l /dev/bus/usb/001/002' os número são fornecidos pelo comando anterior lsusb
+
+
+
+
 
 # Alias functions (alias with parameters...)
 # check with which gcc version and .bin of .so was copiled
@@ -155,7 +195,34 @@ function associar_ssh_key_git(){
     git config core.sshCommand "ssh -i $1"
 }
 
+# Docker run command to run everything needed to
+# param1: docker image
+# --rm apagar o estado
+function docker_run_com_interface(){
+  sudo docker run --gpus all --rm -ti --net=host --ipc=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:/tmp/.XAuthority -e XAUTHORITY=/tmp/.XAuthority --env="QT_X11_NO_MITSHM=1" $1 /bin/bash
+}
 
+
+# Indica se tenho o pacote passado como primeiro argumento
+tenho() {
+    echo "Procurando $1..."
+    echo -e "\n »»»»»» Verificando apt/dpkg:"
+    dpkg -l | grep "$1"
+    echo -e "\n »»»»»» Verificando snap:"
+    snap list | grep "$1"
+}
+
+# Indica onde esta o pacote passado como primeiro argumento
+cade() {
+   echo "»»»»»» Procurando $1..."
+   echo -e "\nLocalizando via dpkg:"
+   dpkg -S "$1" 2>/dev/null
+   echo -e "\n»»»»»» Localizando via snap:"
+   if snap list | grep -q "^$1"; then
+       echo "Arquivos do snap: /var/lib/snapd/snaps/${1}_*.snap"
+       echo "Montado em: /snap/$1"
+   fi
+}
 
 
 # Related to Nvidea Configuration
@@ -194,14 +261,14 @@ export PHOXI_CONTROL_PATH=/opt/PhotoneoPhoXiControl-
 #export ROS_IP=10.40.217.221
 
 
-echo "»»"
-echo "»» Current CMake Prefix Path:"
-echo "»»" $CMAKE_PREFIX_PATH
+
 echo "»» Current ROS_MASTER_URI Path:"
 echo "»»" $ROS_MASTER_URI
 echo "»» Current ROS_IP Path:"
 echo "»»" $ROS_IP
 echo "»»"
+
+
 
 #cat /home/joaopedro/Desktop/Continuar
 #alias code_name="command"
