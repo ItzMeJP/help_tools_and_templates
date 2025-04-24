@@ -8,7 +8,7 @@ First, it will be needed to add a shortcut to open a distrobox specific image. L
 3. Click + to add new shortcut
 4. Configure as:
    - Name: `Open Distrobox Ubuntu Jazzy`
-   - Command: `terminator -p ubuntu_jazzy_profile`.
+   - Command: `terminator -p ubuntu_jazzy_profile` 
    (The profile name should be defined in the terminator configuration. See Section 2)
    - Shortcut: Press `Ctrl + Alt + R`
 

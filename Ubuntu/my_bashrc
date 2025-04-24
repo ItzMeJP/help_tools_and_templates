@@ -41,13 +41,7 @@ export CUDADIR=/usr/local/cuda-11.4
 
 export EDITOR=atom
 
-
-
-
 #ROS STUFFS
-export ROS_1_DIR="/opt/ros/noetic"
-export ROS_2_DIR="/opt/ros/jazzy"
-
 export UBUNTU_VERSION=$(lsb_release -d | awk -F"\t" '{print $2}')
 echo "»»"
 echo "»» Ubuntu version: $UBUNTU_VERSION"
@@ -61,14 +55,13 @@ if [[ $HOSTNAME == "$HOST_HOSTNAME" ]]; then
     export ROS_WS_PKG="$HOME/ros_ws"
     unset CMAKE_PREFIX_PATH
 
-
     #export CURRENT_ROS_WS="$ROS_WS_PKG/ws_common"
     #export CURRENT_ROS_WS="$ROS_WS_PKG/ws_drl"
     #export CURRENT_ROS_WS="$ROS_WS_PKG/ws_devices"
     #export CURRENT_ROS_WS="$ROS_WS_PKG/ws_graspit"
-    #export CURRENT_ROS_WS="$ROS_WS_PKG/ws_grasping"
+    export CURRENT_ROS_WS="$ROS_WS_PKG/ws_grasping"
     #export CURRENT_ROS_WS="$ROS_WS_PKG/ws_xweld"
-    export CURRENT_ROS_WS="$ROS_WS_PKG/ws_calibrations"
+    #export CURRENT_ROS_WS="$ROS_WS_PKG/ws_calibrations"
     #export CURRENT_ROS_WS="$ROS_WS_PKG/ws_missions"
 
     #source $ROS_1_DIR/setup.bash
@@ -80,21 +73,86 @@ if [[ $HOSTNAME == "$HOST_HOSTNAME" ]]; then
 
 elif [[ $HOSTNAME == "$DISTROBOX_HOSTNAME_0" ]]; then
     unset CMAKE_PREFIX_PATH
+    unset AMENT_PREFIX_PATH
     ROS_WS_PKG="$HOME/ros2_ws"
     export ROS_WS_PKG
 
-    #source /usr/share/colcon_cd/function/colcon_cd.sh
+    #para incluir os comando colcon
+    source /usr/share/colcon_cd/function/colcon_cd.sh
+    #para autocomplete do colcon
+    source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
 
-    export CURRENT_ROS_WS="$ROS_WS_PKG/root_ws"
-    source $CURRENT_ROS_WS/install/setup.bash
-    #source $ROS_2_DIR/setup.bash
+    # Aqui define a hierarquia de workspaces.
+    source /opt/ros/jazzy/setup.bash
+      source $ROS_WS_PKG/sandbox_ws/install/local_setup.bash
+      #source $ROS_WS_PKG/lab_ws/install/local_setup.bash
 
     export ROS_DOMAIN_ID="0"
 
+    retorne_ultimo_ws_ros2() {
+      local ws_install=$(echo "$AMENT_PREFIX_PATH" | awk -F ':' '{print $1}')
+      local ws_root=$(dirname "$(dirname "$ws_install")")  # sobe 2 níveis
+      echo "$ws_root"
+    }
+
+    #Configurando o colcon_cd para o ultimo ws da chain
+    cd "$(retorne_ultimo_ws_ros2)" > /dev/null 2>&1
+    colcon_cd --set > /dev/null 2>&1
+    cd  > /dev/null 2>&1
+    export COLCON_CD_ROOT="$(retorne_ultimo_ws_ros2)"
+
+    colconsafebuild() {
+      local ros_ws=$(retorne_ultimo_ws_ros2)
+
+      if [[ -z "$ros_ws" ]]; then
+        echo "🚫 Nenhuma workspace ativa detectada."
+        return 1
+      fi
+
+      local current_dir=$(realpath .)
+      local ws_dir=$(realpath "$ros_ws")
+
+      if [[ "$current_dir" != "$ws_dir" ]]; then
+        echo "🚫 Você não está na raiz da workspace ativa!"
+        echo "➡️ Workspace ativa esperada: $ws_dir"
+        echo "📍 Diretório atual: $current_dir"
+        return 1
+      fi
+
+      echo "🔧 Build autorizado na workspace: $(basename "$ros_ws")"
+      colcon build --symlink-install
+    }
+
+
+    # Função compacta para mostrar workspaces ROS 2
+    ros2_ws_chain() {
+      echo -n "»» Workspaces Chain: "
+
+      if [ -z "$AMENT_PREFIX_PATH" ]; then
+        echo "Nenhum workspace encontrado"
+        return
+      fi
+
+      local ws_list=""
+      local separator=" -> "
+
+      # Extrai, simplifica e remove duplicatas dos caminhos de workspace
+      for ws_path in $(echo "$AMENT_PREFIX_PATH" | tr ':' '\n' | sed 's|/install/.*$||' | sort | uniq); do
+        if [[ $ws_path == "/opt/ros/"* ]]; then
+          ws_list="${ws_list:+$ws_list$separator}$(basename $ws_path)(sys)"
+        else
+          ws_list="${ws_list:+$ws_list$separator}$(basename $ws_path)"
+        fi
+      done
+
+      echo "$ws_list"
+    }
 
     echo "»» Running ROS 2"
-    echo "»» Current Ament Prefix Path:"
-    echo "»»" $AMENT_PREFIX_PATH
+    #echo "»» Current Ament Prefix Path:"
+    #echo "»»" $AMENT_PREFIX_PATH | tr ':' '\n'
+    ros2_ws_chain
+    echo "»» colcon_cd -> $(retorne_ultimo_ws_ros2)"
 
 else
     echo "»»"
@@ -127,10 +185,8 @@ alias vem_regras='cd /etc/udev/rules.d'
 alias recarregar_rules='sudo udevadm control --reload-rules && sudo udevadm trigger'
 alias lista_usb='lsusb'
 alias monitore_imagem='podman logs -f'
+alias dependenicas_ros='rosdep install -i --from-path src --rosdistro jazzy -y'
 #verificar permissao da usb 'ls -l /dev/bus/usb/001/002' os número são fornecidos pelo comando anterior lsusb
-
-
-
 
 
 # Alias functions (alias with parameters...)
